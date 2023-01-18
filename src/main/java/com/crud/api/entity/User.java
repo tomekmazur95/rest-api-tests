@@ -14,6 +14,7 @@ public class User {
 
     private String name;
     private String surname;
+
     public static User mapper(CreateUser createUser){
         User user = new User();
         user.setName(createUser.name());

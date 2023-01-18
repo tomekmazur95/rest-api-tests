@@ -27,9 +27,7 @@ public class UserService {
         }
 
         User user = User.mapper(createUser);
-        userRepository.save(user);
-
-        return ViewUser.mapper(user);
+        return ViewUser.mapper(userRepository.save(user));
     }
 
     public Optional<ViewUser> findById(long id) {
