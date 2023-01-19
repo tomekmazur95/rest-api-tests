@@ -1,6 +1,7 @@
 package com.crud.api.service
 
 import com.crud.api.dto.CreateUser
+import com.crud.api.dto.UpdateUser
 import com.crud.api.dto.ViewUser
 import com.crud.api.entity.User
 import com.crud.api.repository.UserRepository
@@ -43,4 +44,41 @@ class UserServiceTest extends Specification {
 
     }
 
+    def "testing happy path for update method"() {
+        given:
+        def updateUser = new UpdateUser("Krzysztof", "Kononowicz");
+        def id = 2;
+
+        def mockedUser = new User();
+        mockedUser.setId(id)
+        mockedUser.setName("Jan")
+        mockedUser.setSurname("Kowalski")
+
+
+        when:
+
+        def actualResult = userService.updateUser(id, updateUser)
+
+        then:
+        1 * userRepository.findById(id) >> Optional.of(mockedUser)
+        1 * userRepository.save(_ as User) >> mockedUser
+        actualResult == Optional.of(new ViewUser(id, "Krzysztof", "Kononowicz"))
+    }
+
+
+    def "testing happy path for findById method"() {
+        given:
+        def id = 3
+
+        def mockedUser = new User()
+        mockedUser.setId(id)
+        mockedUser.setName("Marcin")
+        mockedUser.setSurname("Kowalski")
+
+        when:
+        def actualResult = userService.findById(id)
+        then:
+        1 * userRepository.findById(id) >> Optional.of(mockedUser)
+        actualResult == Optional.of(new ViewUser(id, "Marcin", "Kowalski"))
+    }
 }
