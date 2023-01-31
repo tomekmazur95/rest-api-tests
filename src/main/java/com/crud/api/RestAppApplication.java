@@ -17,9 +17,9 @@ public class RestAppApplication {
     @Bean
     CommandLineRunner commandLineRunner(UserService userService) {
         return args -> {
-            userService.create(new CreateUser("Tomasz", "Mazur"));
-            userService.create(new CreateUser("Krzys", "Mazur"));
-            userService.create(new CreateUser("Gosia", "Mazur"));
+            userService.create(new CreateUser("Tomasz", "Nowakowski"));
+            userService.create(new CreateUser("Marcin", "Kowalski"));
+            userService.create(new CreateUser("Damian", "Kot"));
 
         };
     }
